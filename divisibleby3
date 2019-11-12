@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+   
+int divisiblefor3(int counter, int number)
+{
+    int divisors;
+
+    divisors = number % counter;
+
+    if (divisors % 3 != 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1 + divisiblefor3(counter + 1, number);
+    }
+}
+
+int main() 
+{
+  int number;
+
+  scanf("%d", &number);
+
+  printf("%d", divisiblefor3(0,number));
+  
+	return 0;
+}
