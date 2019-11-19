@@ -3,29 +3,35 @@
 #include <math.h>
 #include <stdlib.h>
    
-int divisiblefor3(int counter, int number)
+int divisiblefor3(int counter, int number, int res)
 {
-    int divisors;
-
-    divisors = number % counter;
-
-    if (divisors % 3 != 0)
+    if (number % counter == 0)
     {
-        return 0;
+        if (counter % 3 == 0)
+        {
+            res++;
+        }
+    }
+    
+    
+    if (counter > 1)
+    {
+        return divisiblefor3(counter - 1,number, res);
     }
     else
     {
-        return 1 + divisiblefor3(counter + 1, number);
+        return res;
     }
-}
 
+
+}
 int main() 
 {
   int number;
 
   scanf("%d", &number);
 
-  printf("%d", divisiblefor3(0,number));
+  printf("%d", divisiblefor3(number,number, 0));
   
 	return 0;
 }
