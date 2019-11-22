@@ -3,15 +3,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-int fatorial(numero)
+int fatorial(int numero)
 {
-    if (numeroz == 0)
+    if (numero == 0)
     {
         return 1;
     }
     else
     {
-        return numeroz * fatorial(numeroz - 1);
+        return numero * fatorial(numero - 1);
     }
 }
 int numerosprimos(int contador, int numero)
@@ -31,27 +31,54 @@ int numerosprimos(int contador, int numero)
             return numerosprimos(contador + 1, numero);
         }
     }
+    
 }
-int proximoPrimo (int numero) 
+int proximoPrimo ( int numero) 
 {
 
-    if (numerosprimos(numero+1, 2)) 
+    if (numerosprimos(1, numero + 1)) 
     {
-        return numero + 1;
-    } 
+        return (numero + 1);
+    }
     else
     {
-        return proximoPrimo(numero + 1);
+        return proximoPrimo( numero + 1);
+        
+    }
+}
+int sequencia(int contador,int numero)
+{
+    double resultado;
+
+    resultado += fatorial(contador) / proximoPrimo(contador);
+
+    if (contador == numero)
+    {
+
+        return resultado;
+    }
+    else
+    {
+        return sequencia(contador + 1, numero);
     }
 }
 
 int main() 
 {
     int numero;
+    double resultado;
 
     scanf("%d", &numero);
 
-    proximoPrimo(2, numero);
+    if (numero == 0)
+    {
+        printf("0.00\n");
+    }
+    else
+    {
+        resultado = sequencia(0, numero);
+        printf("%.0lf\n", resultado);
+    }
     
 	return 0;
 }
