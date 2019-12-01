@@ -1,65 +1,53 @@
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
-int pedagio(int contador, int numero, int x, int y, char movimento)
-{ 
-    int moedas;
+int leitura_dias(int contador,int numero,int moedas,int x,int y, char movanterior ,char mov)
+{
+    movanterior = mov;
 
+    scanf("\n%c", &mov);
+
+    
     if (contador == numero)
     {
+        
         return moedas;
+        
     }
-    else
-    {
-        if(x > y || y > x)
-        {
-            moedas + 1;
+    else 
+    {   
+         if (mov == 'C')
+        {  
+            
+            y += 1 ;
         }
-        if(movimento == 'C')
+        if(mov =='D')
         {
-            return pedagio(contador + 1, numero, x, y + 1, movimento);
-        }
-        else
+            
+            x +=1;
+        }  
+         if (mov =='C' && movanterior == 'C' && x == y + 1 )
         {
-            return pedagio(contador + 1, numero, x + 1, y, movimento);
+            moedas += 1;
         }
-          
+        else if(mov =='D' && movanterior =='D' && y == x +1 )
+        {
+            moedas += 1;
+        }
+       return leitura_dias(contador + 1,numero, moedas, x, y, movanterior,mov);
     }
-    
-}
-void read(int contador, int numero)
-{
-    char movimento;
-
-    int resultado, a;
-    
-
-    scanf("%c", &movimento);
-
-   if (numero >= contador)
-    {  
-        a =  pedagio(0, numero, 0, 0, movimento);
-
-       resultado += a;
-    }
-
-    read(contador + 1, numero);
-
-    printf("%d", resultado);
-
-   
 }
 int main()
 {
-    int numero;
+    int numero, resultado;
+    char mov,movanterio;
 
-    scanf("%d", &numero);
+    scanf("%d ",&numero);
 
-    read(0,numero);
+    resultado = leitura_dias(1, numero, 0, 0,0, movanterio, mov);
 
-    return 0;
+    printf("%d", resultado);
 
 }
-
