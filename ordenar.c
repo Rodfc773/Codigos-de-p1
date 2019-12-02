@@ -1,72 +1,55 @@
 #include <stdio.h>
-#include <string.h>
 #include <math.h>
 #include <stdlib.h>
+#include <string.h>
 
-void leituradearray(int contador, int numero,int array[])
+int leitura_dias(int contador,int numero,int moedas,int x,int y, char movanterior ,char mov)
 {
-    if (contador < numero)
-    {
-        scanf("%d", &array[contador]);
-        leituradearray(contador + 1, numero, array);
-    }
-}
-void ordenardordearray(int contador, int numero, int array[])
-{
-    int aux;
+    movanterior = mov;
 
-    if(contador < numero - 1)
-    {
-        if (array[contador] > array[contador + 1])
-        {
-            aux = array[contador];
-            array[contador] = array[contador + 1];
-            array[contador + 1] = aux;
-
-            ordenardordearray(contador + 1, numero, array);
-        }
-    } 
-}
-void chamarordenar(int contador, int numero, int array[])
-{
-    if(contador < numero )
-    {
-        ordenardordearray(contador + 1, numero,array);
-
-        chamarordenar(contador + 1,numero, array);
-    }
-}
-void printararray(int contador, int numero, int array[])
-{
-    if(contador < numero)
-    {
-        if (contador == numero - 1)
-        {
-
-            printf("%d\n", array[contador]);
-        }
-        else
-        {
-            printf("%d ", array[contador]);
-        }
-        printararray(contador + 1, numero, array);
-    }
     
+    if (contador == numero)
+    {  
+        return moedas;   
+    }
+    else 
+    { 
+        scanf("\n%c", &mov);
+
+         if (mov == 'C')
+        {  
+            
+            y += 1;
+        }
+        if(mov =='D')
+        {
+            
+            x +=1;
+        }  
+         if (mov == movanterior)
+        {
+            if (x - 1 == y && mov == 'D')
+            {
+                moedas += 1;
+            }
+            else if(y - 1 == x && mov == 'C')
+            {
+                moedas += 1;
+            }
+        }
+        
+       return leitura_dias(contador + 1,numero, moedas, x, y, movanterior,mov);
+    }
 }
 int main()
-{   
-    int n;
+{
+    int numero, resultado;
+    char mov,movanterio;
 
-    scanf("%d", &n);
+    scanf("%d",&numero);
 
-    int array[n];
+    resultado = leitura_dias(1, numero, 0, 0,0, movanterio, mov);
 
-    leituradearray(0, n, array);
-
-    ordenardordearray(0, n, array);
-    
-    chamarordenar(0, n, array);
-
-    printararray(0, n, array);
+    printf("%d", resultado);
 
 }
