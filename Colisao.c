@@ -19,23 +19,53 @@ void ler_matriz(int i, int j, int lines, int coluns, int array[][coluns])
         }
     }   
 }
-void colisao(int i, int moves, char move, int m, int k, int l, int array[][m])
+void validar_move(int i , int moves, char array[]) /*função para guardar em um array os movimentos feitos para poderem ser validados*/
 {
     if (i < moves)
     {
-        scanf("%c", &move);
+        scanf("%c", &array[i]);
 
-       
-    else
-    { 
-        int k, l; //onde k e l indica a posição inicial]
-
-        scanf("%d\n%d", &k, &l);
-        
-        printf("(%d,%d)", k, l);
+        validar_move(i + 1, moves, array);
     }
-    
-    
+}
+void colisao(int i, int moves,char movimentos[],int coluns ,int array[][coluns], int k, int l, int aux1, int aux2)
+{
+    if(i < moves)
+    {
+        if(movimentos[i] == 'C')
+        {
+            if(array[k -1][l] == 1)
+            {
+                aux1--;
+            }
+        }
+        else if(movimentos[i] == 'B')
+        {
+            if (array[k + 1][l] == 1)
+            {
+                aux1++;
+            }
+        }
+        else if(movimentos[i] == 'D')
+        {
+            if (array[k][l + 1] == 1)
+            {
+                aux2++;
+            }
+        }
+        else
+        {
+            if (array[k][l - 1] == 1)
+            {
+                aux2--;
+            }
+        }
+        colisao(i + 1, moves, movimentos, coluns, array, k, l, aux1, aux2);
+    }
+    else
+    {
+        printf("(%d,%d)", k + aux1, l + aux2);
+    }
 }
 int main() 
 {
@@ -51,13 +81,15 @@ int main()
 
     scanf("%d", &moves);
 
-    int k, l; //onde k e l indica a posição inicial]
+    char move[moves];
+
+    int k, l; //onde k e l indica a posição inicial
+
+    validar_move(0, moves, move);
 
     scanf("%d\n%d", &k, &l);
 
-    char move;
-
-    colisao(0, moves, move, coluns, k, l, matriz);
+    colisao(0, moves, move, coluns, matriz, k, l, 0, 0);
 
 	return 0;
 }
