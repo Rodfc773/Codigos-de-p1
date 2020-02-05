@@ -19,24 +19,27 @@ void zerar_array(int i, int n, int array[])
         array[i] = 0;
     }
 }
-void formar_parcial(int i, int n, int array1[], int array2[], int aux)
+int prox_numero(array[],int i, int n)
 {
-    if(i < n)
+    if (i < n)
     {
-        if(array2[array1[i]] == 0)
-       {
-            array2[array1[i]] = 1;
-
-            if (array2[array1[i + 1]] == 1)
-            {
-                aux += 1;
-            }
-       }
-       formar_parcial(i + 1, n, array1, array2, aux);
+        if (array[i] == 0)
+        {
+            return i;
+        }
+        prox_numero(array, i + 1, n);
     }
-    else
+        }
+}
+void formar_parcial(int i, int array1[], int array2[], int aux) // função para adicionar um no array secundario
+{
+    if(i != -1)
     {
-        printf("%d", aux);
+        if(array2[i] == 1)  
+        {
+            aux++;
+            i = prox
+        }  
     }
 }
 int main() 
